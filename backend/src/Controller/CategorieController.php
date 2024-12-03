@@ -81,7 +81,7 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/categorie/delete/{id}', name: 'categorie-delete')]
-    public function delete(Request $request, ManagerRegistry $doctrine, int $id)
+    public function delete(ManagerRegistry $doctrine, int $id)
     {
         $repository = $doctrine->getRepository(Categorie::class);
         $categorie = $repository->findOneBy(array("id" => $id));

@@ -27,8 +27,8 @@ class Produit
     #[ORM\Column]
     private ?float $prix = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_creation = null;
+    #[ORM\Column(type: "date")]
+    private $date_creation = null;
 
     public function getId(): ?int
     {
@@ -83,12 +83,12 @@ class Produit
         return $this;
     }
 
-    public function getDateCreation(): ?\DateTimeInterface
+    public function getDateCreation()
     {
         return $this->date_creation;
     }
 
-    public function setDateCreation(\DateTimeInterface $date_creation): static
+    public function setDateCreation($date_creation)
     {
         $this->date_creation = $date_creation;
 

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 export default function CreateCategorie() {
     const [nom, setNom] = useState('');
     const navigate = useNavigate();
-    const [message, setMessage] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,12 +22,8 @@ export default function CreateCategorie() {
                 return response.text();
             })
             .then((data) => {
-                setMessage(data);
                 setNom('');
                 navigate("/");
-            })
-            .catch((error) => {
-                setMessage(error.message);
             });
     };
 

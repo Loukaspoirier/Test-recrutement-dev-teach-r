@@ -20,7 +20,7 @@ export default function ReadAllCategorie(){
           <li key={categorie.id}>
               <div>
                 {categorie.nom}
-                <Link to={`/update/${categorie.id}`}>Modifier</Link>
+                <Link to={`/update/categorie/${categorie.id}`}>Modifier</Link>
                 <DeleteCategorie id={categorie.id} />
               </div>
           </li>
