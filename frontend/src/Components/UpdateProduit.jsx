@@ -1,130 +1,116 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
+import { updateProduitById, fetchCategories } from "../actions";
 
 export default function UpdateProduit() {
-    const { id } = useParams();
-    const navigate = useNavigate();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { categories, loading: loadingCategories, error: errorCategories } = useSelector((state) => state.categories);
+  const { produits, loading: loadingProduits, error: errorProduits } = useSelector((state) => state.produits);
 
-    const [nom, setNom] = useState("");
-    const [description, setDescription] = useState("");
-    const [prix, setPrix] = useState("");
-    const [date, setDate] = useState("");
-    const [categorieId, setCategorieId] = useState("");
-    const [categories, setCategories] = useState([]);
+  const [formData, setFormData] = useState({
+    nom: "",
+    description: "",
+    prix: "",
+    date: "",
+    categorieId: "",
+  });
 
+  useEffect(() => {
+    if (categories.length === 0) {
+      dispatch(fetchCategories());
+    }
 
-    useEffect(() => {
-        fetch('/categorie')
-            .then((response) => response.json())
-            .then((data) => setCategories(data))
-            .catch((error) => console.error('Erreur lors du chargement des catégories :', error));
-    }, []);
+    const produit = produits.find((p) => p.id === parseInt(id));
+    if (produit) {
+      setFormData({
+        nom: produit.nom,
+        description: produit.description,
+        prix: produit.prix,
+        date: produit.date,
+        categorieId: produit.categorieId || "",
+      });
+    }
+  }, [dispatch, id, categories, produits]);
 
-    useEffect(() => {
-        fetch(`/produit/read/${id}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setNom(data.nom);
-                setDescription(data.description);
-                setPrix(data.prix);
-                setDate(data.date);
-                setCategorieId(data.categorieId);
-            })
-            .catch((error) => console.error("Erreur :", error));
-    }, [id]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateProduitById(id, formData));
+    alert("Produit mis à jour !");
+    navigate("/produit");
+  };
 
-        fetch(`/produit/update/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                nom,
-                description,
-                prix: parseFloat(prix),
-                date,
-                categorieId: parseInt(categorieId, 10),
-            }),
-        })
-            .then((response) => {
-                if (response.ok) {
-                    alert("Produit mis à jour avec succès");
-                    navigate("/");
-                } else {
-                    alert("Erreur lors de la mise à jour du produit");
-                }
-            })
-            .catch((error) => console.error("Erreur :", error));
-    };
+  if (loadingCategories || loadingProduits) return <p>Chargement...</p>;
+  if (errorCategories || errorProduits) return <p>Erreur : {errorCategories || errorProduits}</p>;
 
-    return (
+  return (
+    <div>
+      <h1>Modifier le produit</h1>
+      <form onSubmit={handleSubmit}>
         <div>
-            <h1>Modifier le produit</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Nom :
-                        <input
-                            type="text"
-                            value={nom}
-                            onChange={(e) => setNom(e.target.value)}
-                            required
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Description :
-                        <textarea
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            required
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Prix :
-                        <input
-                            type="number"
-                            step="0.01"
-                            value={prix}
-                            onChange={(e) => setPrix(e.target.value)}
-                            required
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Date :
-                        <input
-                            type="date"
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                            required
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        ID de la catégorie :
-                        <select
-                            id="categorie"
-                            value={categorieId}
-                            onChange={(e) => setCategorieId(e.target.value)}
-                            required>
-                            <option value="">Sélectionner une catégorie</option>
-                            {categories.map((categorie) => (
-                                <option key={categorie.id} value={categorie.id}>
-                                    {categorie.nom}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-                </div>
-                <button type="submit">Valider</button>
-            </form>
+          <label>Nom du produit :</label>
+          <input
+            type="text"
+            name="nom"
+            value={formData.nom}
+            onChange={handleChange}
+            required
+          />
         </div>
-    );
+        <div>
+          <label>Description :</label>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Prix :</label>
+          <input
+            type="number"
+            name="prix"
+            value={formData.prix}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Date :</label>
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Catégorie :</label>
+          <select
+            name="categorieId"
+            value={formData.categorieId}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Sélectionner une catégorie</option>
+            {categories.map((categorie) => (
+              <option key={categorie.id} value={categorie.id}>
+                {categorie.nom}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button type="submit">Mettre à jour</button>
+      </form>
+    </div>
+  );
 }

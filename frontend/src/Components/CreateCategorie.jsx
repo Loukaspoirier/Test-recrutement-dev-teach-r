@@ -1,70 +1,29 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { createCategorie } from '../actions';
 
 export default function CreateCategorie() {
-    const [nom, setNom] = useState('');
     const navigate = useNavigate();
+
+    const [nom, setNom] = useState("");
+    const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        fetch('/categorie/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ nom }),
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Erreur lors de la création de la catégorie.');
-                }
-                return response.text();
-            })
-            .then((data) => {
-                setNom('');
-                navigate("/");
-            });
+        dispatch(createCategorie({ nom }));
+        setNom("");
+        navigate('/categorie');
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="space-y-12">
-                <div className="border-b border-gray-900/10 pb-12">
-                    <h2 className="text-base/7 font-semibold text-gray-900">Créer une nouvelle catégorie</h2>
-
-                    <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div className="sm:col-span-4">
-                            <label htmlFor="nom" className="block text-sm/6 font-medium text-gray-900">
-                                Nom de la catégorie
-                            </label>
-                            <div className="mt-2">
-                                <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                                    <input
-                                        type="text"
-                                        id="nom"
-                                        value={nom}
-                                        onChange={(e) => setNom(e.target.value)}
-                                        required
-                                        name="nom"
-                                        placeholder="Nom de la catégorie"
-                                        className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
+            <h2 className="text-base/7 font-semibold text-gray-900 mt-6 mb-6">Créer une nouvelle catégorie</h2>
+            <div class="mb-5">
+                <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Le nom de la catégorie</label>
+                <input type="text" id="nom" value={nom} onChange={(e) => setNom(e.target.value)} required name="nom" placeholder="Nom de la catégorie" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
-
-            <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button
-                    type="submit"
-                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                    Valider
-                </button>
-            </div>
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Valider</button>
         </form>
 
     )

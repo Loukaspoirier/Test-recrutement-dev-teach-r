@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchProduits } from "../actions";
 import DeleteProduit from "./DeleteProduit";
 import { Link } from "react-router-dom";
 
 export default function ReadAllProduit() {
-    const [produits, setProduits] = useState([]);
+  const dispatch = useDispatch();
+  const { produits, loading, error } = useSelector((state) => state.produits);
 
-    useEffect(() => {
-        fetch("/produit")
-            .then((response) => response.json())
-            .then((data) => setProduits(data))
-            .catch((error) => console.error("Erreur :", error));
-    }, [])
+  useEffect(() => {
+    dispatch(fetchProduits());
+  }, [dispatch]);
+
+  if (loading) return <p>Chargement...</p>;
+  if (error) return <p>Erreur : {error}</p>;
 
     return (
         <div>
@@ -61,7 +64,7 @@ export default function ReadAllProduit() {
 
                                     </td>
                                     <td class="px-6 py-4 m-2">
-                                        <Link to={'/update/produit/${produit.id}'} className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center m-3 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Modifier</Link>
+                                        <Link to={`/produit/update/${produit.id}`} className="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center m-3 dark:focus:ring-yellow-900">Modifier</Link>
                                         <br />
                                         <DeleteProduit id={produit.id} />
                                     </td>

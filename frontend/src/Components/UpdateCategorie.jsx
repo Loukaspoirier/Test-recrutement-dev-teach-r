@@ -1,34 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
+import { updateCategorieById } from "../actions";
 
 export default function UpdateCategorie() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [nom, setNom] = useState("");
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.categories);
+
+  const [formData, setFormData] = useState({
+    nom: "",
+  });
 
   useEffect(() => {
-    fetch(`/categorie/read/${id}`)
-      .then((response) => response.json())
-      .then((data) => setNom(data.nom))
-      .catch((error) => console.error("Erreur :", error));
-  }, [id]);
+    const categorie = categories.find((c) => c.id === parseInt(id));
+    if (categorie) {
+      setFormData({ nom: categorie.nom });
+    }
+  }, [categories, id]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`/categorie/update/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nom }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          alert("Catégorie mise à jour avec succès");
-          navigate("/");
-        } else {
-          alert("Erreur lors de la mise à jour");
-        }
-      })
-      .catch((error) => console.error("Erreur :", error));
+    dispatch(updateCategorieById(id, formData));
+    alert("Catégorie mise à jour !");
+    navigate("/categorie"); 
   };
 
   return (
@@ -36,17 +37,17 @@ export default function UpdateCategorie() {
       <h1>Modifier la catégorie</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Nouveau nom :
+          Nom de la catégorie :
           <input
             type="text"
-            value={nom}
-            onChange={(e) => setNom(e.target.value)}
+            name="nom"
+            value={formData.nom}
+            onChange={handleChange}
             required
           />
         </label>
-        <button type="submit">Valider</button>
+        <button type="submit">Mettre à jour</button>
       </form>
     </div>
   );
-};
-
+}

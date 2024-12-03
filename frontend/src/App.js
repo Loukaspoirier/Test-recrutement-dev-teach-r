@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router,Routes, Route, Link} from "react-router-dom"
-import CreateCategorie from './Components/CreateCategorie';
-import UpdateCategorie from './Components/UpdateCategorie';
-import CreateProduit from './Components/CreateProduit';
-import UpdateProduit from './Components/UpdateProduit';
-import HomePage from './Components/Page/HomePage';
-import ProduitPage from './Components/Page/ProduitPage';
-import CategoriePage from './Components/Page/CategoriePage';
+import HomePage from './Components/Pages/HomePage';
+import ProduitPage from './Components/Pages/ProduitPage';
+import CategoriePage from './Components/Pages/CategoriePage';
+import CreateProduitPage from './Components/Pages/CreateProduitPage';
+import CreateCategoriePage from './Components/Pages/CreateCategoriePage';
+import UpdateCategoriePage from './Components/Pages/UpdateCategoriePage';
+import UpdateProduitPage from './Components/Pages/UpdateProduit';
 
 function App() {
   return (
@@ -15,10 +15,10 @@ function App() {
       <Route path='/' element={<HomePage />} />
         <Route path="/categorie" element={<CategoriePage />} />
         <Route path="/produit" element={<ProduitPage />} />
-        <Route path="/create/produit" element={<CreateProduit />} />
-        <Route path="/create" element={<CreateCategorie />} />
-        <Route path="/update/categorie/:id" element={<UpdateCategorie />} />
-        <Route path="/update/produit/:id" element={<UpdateProduit />} />
+        <Route path="/produit/create" element={<CreateProduitPage />} />
+        <Route path="/categorie/create" element={<CreateCategoriePage />} />
+        <Route path="/categorie/update/:id" element={<UpdateCategoriePage />} />
+        <Route path="/produit/update/:id" element={<UpdateProduitPage />} />
       </Routes>
     </Router>
   );
