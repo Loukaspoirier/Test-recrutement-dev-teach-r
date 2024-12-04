@@ -74,4 +74,6 @@ J'ai commenté la plupart de mon code pour l'explication des différentes foncti
 
 - Mélange d'anglais et de français, le nom des entités et des attributs est en fraçais pour respect les noms utilisés dans les consignes alors que le reste du code est en anglais
 - Faire une petite annimation pendant les chargements
-- Créer beaucoup plus de composant réutilisable mais contrainte de temps  
+- Créer beaucoup plus de composant réutilisable mais contrainte de temps 
+- Créer une authentification pour plus de sécurité pas eu le temps le finir
+- Héberger le site pour la démo 
