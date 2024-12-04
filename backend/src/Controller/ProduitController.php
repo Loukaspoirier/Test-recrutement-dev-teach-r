@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ProduitController extends AbstractController
 {
+    // Permet de créer un nouveau produit
     #[Route('/produit/create', name: 'create-produit', methods: ['POST'])]
     public function create(Request $request, ManagerRegistry $doctrine): Response
     {
@@ -46,6 +47,7 @@ class ProduitController extends AbstractController
     }
 
 
+    // Permet de lire tous les Produits sous format Json
     #[Route('/produit', name: 'readAll-produit')]
     public function readAll(ManagerRegistry $doctrine)
     {
@@ -56,16 +58,21 @@ class ProduitController extends AbstractController
         foreach ($produits as $produit) {
             $data[] = [
                 "id" => $produit->getId(),
+
+                // Récupère le nom du catégorieID
                 "categorie" => $produit->getCategorie()->getNom(),
                 "nom" => $produit->getNom(),
                 "description" => $produit->getDescription(),
                 "prix" => $produit->getPrix(),
+
+                // Permet de seulement afficher la date et pas l'heure et les minutes
                 "date" => $produit->getDateCreation()->format('Y-m-d'),
             ];
         }
         return new JsonResponse($data);
     }
 
+    // Permet de lire un produit avec son ID sous format Json
     #[Route('/produit/read/{id}', name: 'read-produit')]
     public function read(ManagerRegistry $doctrine, int $id)
     {
@@ -74,16 +81,21 @@ class ProduitController extends AbstractController
 
         $data = [
             "id" => $produit->getId(),
+
+            // Récupère le nom du catégorieID
             "categorie" => $produit->getCategorie()->getNom(),
             "nom" => $produit->getNom(),
             "description" => $produit->getDescription(),
             "prix" => $produit->getPrix(),
+
+            // Permet de seulement afficher la date et pas l'heure et les minutes
             "date" => $produit->getDateCreation()->format('Y-m-d'),
         ];
 
         return new JsonResponse($data);
     }
 
+    // Permet de modifier un produit avec son ID
     #[Route('/produit/update/{id}', name: 'update-produit')]
     public function update(ManagerRegistry $doctrine, Request $request, int $id): Response
     {
@@ -111,6 +123,7 @@ class ProduitController extends AbstractController
         return new Response('Produit non modifié', Response::HTTP_CREATED);
     }
 
+    // Permet de supprimer un produit avec son ID
     #[Route('/produit/delete/{id}', name: 'produit-delete')]
     public function delete(ManagerRegistry $doctrine, int $id)
     {

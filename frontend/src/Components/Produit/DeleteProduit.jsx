@@ -2,9 +2,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteProduitById } from "../../actions";
 
+// Composant pour supprimer un produit utiliser dans les formulaires de produit
 export default function DeleteProduit({ id }) {
     const dispatch = useDispatch();
 
+    // On confirme la suppression avec un pop-up
     const handleDelete = () => {
         if (window.confirm("Êtes-vous sûr de vouloir supprimer ce produit ?")) {
             dispatch(deleteProduitById(id));

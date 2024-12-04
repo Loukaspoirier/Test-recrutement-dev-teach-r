@@ -13,6 +13,7 @@ import {
   deleteProduit,
 } from "./store";
 
+// On charge toutes les catégories à l'aide du back
 export const fetchCategories = () => async (dispatch) => {
   dispatch(fetchCategoriesRequest());
   try {
@@ -24,6 +25,7 @@ export const fetchCategories = () => async (dispatch) => {
   }
 };
 
+// On utilise la méthode POST pour envoyer la catégorie sur le back
 export const createCategorie = (categorie) => async (dispatch) => {
   try {
     const response = await fetch("/categorie/create", {
@@ -40,6 +42,7 @@ export const createCategorie = (categorie) => async (dispatch) => {
   }
 };
 
+// On utilise la métode PUT pour modifier la catégorie
 export const updateCategorieById = (id, categorie) => async (dispatch) => {
   try {
     const response = await fetch(`/categorie/update/${id}`, {
@@ -58,6 +61,7 @@ export const updateCategorieById = (id, categorie) => async (dispatch) => {
   }
 };
 
+// On utilise la methode DELETE pour supprimer la catégorie
 export const deleteCategorieById = (id) => async (dispatch) => {
   try {
     const response = await fetch(`/categorie/delete/${id}`, {
@@ -79,6 +83,7 @@ export const setSort = (field, direction) => ({
 });
 
 
+// On charge tous les produits à l'aide du back
 export const fetchProduits = () => async (dispatch) => {
   dispatch(fetchProduitsRequest());
   try {
@@ -90,6 +95,7 @@ export const fetchProduits = () => async (dispatch) => {
   }
 };
 
+// On utilise la méthode POST pour envoyer le produit sur le back
 export const createProduit = (produit) => async (dispatch) => {
   try {
     const response = await fetch("/produit/create", {
@@ -113,6 +119,7 @@ export const createProduit = (produit) => async (dispatch) => {
   }
 };
 
+// On utilise la métode PUT pour modifier le produit
 export const updateProduitById = (id, produit) => async (dispatch) => {
   try {
     const response = await fetch(`/produit/update/${id}`, {
@@ -131,6 +138,7 @@ export const updateProduitById = (id, produit) => async (dispatch) => {
   }
 };
 
+// On utilise la methode DELETE pour supprimer le produit
 export const deleteProduitById = (id) => async (dispatch) => {
   try {
     const response = await fetch(`/produit/delete/${id}`, {

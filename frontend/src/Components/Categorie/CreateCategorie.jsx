@@ -4,12 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { createCategorie } from '../../actions';
 import ValidateButton from '../General/ValidateButton';
 
+// Composant pour créer une catégorie
 export default function CreateCategorie() {
+    // Initialise useNavigate pour se rediriger après la création
     const navigate = useNavigate();
 
+    // On stocke le nom dans un useState
     const [nom, setNom] = useState("");
     const dispatch = useDispatch();
 
+    // lorsque qu'on valide envoie les données et redirige
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(createCategorie({ nom }));
@@ -18,6 +22,7 @@ export default function CreateCategorie() {
     };
 
     return (
+        // Formulaire de création de catégorie
         <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
             <h2 className="text-base/7 font-semibold text-gray-900 mt-6 mb-6">Créer une nouvelle catégorie</h2>
             <div className="mb-5">

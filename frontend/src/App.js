@@ -9,6 +9,7 @@ import UpdateCategoriePage from './Pages/UpdateCategoriePage';
 import UpdateProduitPage from './Pages/UpdateProduit';
 import Error404 from './Pages/404Page';
 
+// Ajout de toutes routes pour naviguer sur le site
 function App() {
   return (
     <Router>

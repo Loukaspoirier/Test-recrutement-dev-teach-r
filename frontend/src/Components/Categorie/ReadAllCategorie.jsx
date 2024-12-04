@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import DeleteCategorie from "./DeleteCategorie";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../../actions";
 
+// Composant pour lire toutes les catégorie
 export default function ReadAllCategorie() {
   const dispatch = useDispatch();
   const { categories, loading, error } = useSelector((state) => state.categories);
 
+  // On va charger toutes les catégories sans rechargement de la page
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
 
+  // message pour patienter pendant le chargement ou si une erreur se produit pendant
   if (loading) return <p className="text-center m-6">Chargement...</p>;
   if (error) return <p>Erreur : {error}</p>;
 
+  // mappage des catégorie pour les récuper 
   return (
     <div>
       <button type="button" class="text-white BgButton rounded-full text-xl m-6 px-5 py-2.5 text-center me-2 mb-2"><Link to={"/categorie/create"}>Ajouter une categorie</Link></button>

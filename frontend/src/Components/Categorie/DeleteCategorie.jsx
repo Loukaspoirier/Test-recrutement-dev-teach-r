@@ -2,9 +2,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteCategorieById } from "../../actions";
 
+// Composant pour supprimer une catégorie
 export default function DeleteCategorie({ id }) {
     const dispatch = useDispatch();
 
+    // Pop-Up pour valider la supression
     const handleDelete = () => {
         if (window.confirm("Êtes-vous sûr de vouloir supprimer cette catégorie ?")) {
             dispatch(deleteCategorieById(id));

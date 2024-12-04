@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
+
+// Entité Categorie relié au Produit grace à la relation ManyToOne du Produit
 class Categorie
 {
     #[ORM\Id]

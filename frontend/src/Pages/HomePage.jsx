@@ -2,6 +2,7 @@ import * as React from "react";
 import NavBar from "../Components/General/Navbar";
 import Footer from "../Components/General/Footer";
 
+// Page d'accueil
 export default function HomePage() {
     return (
         <div>

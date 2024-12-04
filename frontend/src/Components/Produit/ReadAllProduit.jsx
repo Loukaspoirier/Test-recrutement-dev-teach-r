@@ -8,18 +8,23 @@ import SortProduit from "./SortProduit";
 export default function ReadAllProduit() {
     const dispatch = useDispatch();
     const { produits, loading, error } = useSelector((state) => state.produits);
+
+    // On va stocker les éléments écrit dans la barre de recherche et filtrer
     const [searchTerm, setSearchTerm] = useState("");
     const filteredProduits = produits.filter((produit) =>
         produit.nom.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    // On va charger tous les produits
     useEffect(() => {
         dispatch(fetchProduits());
     }, [dispatch]);
 
+    // message avant la fin du chargement ou en cas d'erreur
     if (loading) return <p className="text-center m-6">Chargement...</p>;
     if (error) return <p>Erreur : {error}</p>;
 
+    // Lien pour créer un produit, barre de recherche et tri, avec un mappage des produit pour récuper les données
     return (
         <div>
             <div className="columns-3">

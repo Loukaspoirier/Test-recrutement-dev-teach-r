@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// Page 404 identique à Teach'r en cas de mauvaise url
 export default function Error404() {
     return (
         <div className="text-center">

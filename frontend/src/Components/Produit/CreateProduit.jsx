@@ -4,10 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { createProduit } from "../../actions";
 import ValidateButton from "../General/ValidateButton";
 
+// Composant pour créer un produit
 export default function CreateProduit() {
+    // On utilise la navigation pour se rediriger
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    // Pour stocker les différentes valeurs
     const [nom, setNom] = useState("");
     const [description, setDescription] = useState("");
     const [prix, setPrix] = useState("");
@@ -15,6 +18,7 @@ export default function CreateProduit() {
     const [categorieId, setCategorieId] = useState("");
     const [categories, setCategories] = useState([]);
 
+    // On charge les catégorie pour les afficher dans le selecteur
     useEffect(() => {
         fetch("/categorie")
             .then((response) => response.json())
@@ -22,6 +26,7 @@ export default function CreateProduit() {
             .catch((error) => console.error("Erreur lors du chargement des catégories :", error));
     }, []);
 
+    // On envoie les données et on se redirige après
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -29,6 +34,7 @@ export default function CreateProduit() {
         navigate("/produit");
     };
 
+    // Formulaire pour créer un produit
     return (
         <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
             <h2 className="text-base/7 font-semibold text-gray-900 mt-6 mb-6">Créer une nouvelle catégorie</h2>

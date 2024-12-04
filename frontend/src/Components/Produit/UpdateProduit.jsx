@@ -4,13 +4,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import { updateProduitById, fetchCategories } from "../../actions";
 import ValidateButton from "../General/ValidateButton";
 
+// composant pour modifier un produit
 export default function UpdateProduit() {
   const { id } = useParams();
+
+  // pour se rediriger
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { categories, loading: loadingCategories, error: errorCategories } = useSelector((state) => state.categories);
   const { produits, loading: loadingProduits, error: errorProduits } = useSelector((state) => state.produits);
 
+  // On initialise un tableau pour stocker les attributs
   const [formData, setFormData] = useState({
     nom: "",
     description: "",
@@ -19,11 +23,13 @@ export default function UpdateProduit() {
     categorieId: "",
   });
 
+  // On charge les catégories pour le sélecteur
   useEffect(() => {
     if (categories.length === 0) {
       dispatch(fetchCategories());
     }
 
+    // On affiche les données correspondant à l'id
     const produit = produits.find((p) => p.id === parseInt(id));
     if (produit) {
       setFormData({
@@ -41,6 +47,7 @@ export default function UpdateProduit() {
     setFormData({ ...formData, [name]: value });
   };
 
+  // Redirection une fois les données envoyées
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateProduitById(id, formData));
@@ -48,9 +55,11 @@ export default function UpdateProduit() {
     navigate("/produit");
   };
 
+  // message pour attendre la fin du chargement
   if (loadingCategories || loadingProduits) return <p>Chargement...</p>;
   if (errorCategories || errorProduits) return <p>Erreur : {errorCategories || errorProduits}</p>;
 
+  // Formulaire pour modifier un produit
   return (
     <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
       <h2 className="text-base/7 font-semibold text-gray-900 mt-6 mb-6">Modifier le produit</h2>

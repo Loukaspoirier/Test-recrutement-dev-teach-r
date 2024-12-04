@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class CategorieController extends AbstractController
 {
+    // permet de créer une nouvelle catégorie
     #[Route('/categorie/create', name: 'create-categorie', methods: ['POST', 'GET'])]
     public function create(Request $request, ManagerRegistry $doctrine): Response
     {
@@ -32,6 +33,7 @@ class CategorieController extends AbstractController
         return new Response('Catégorie créée avec succès', Response::HTTP_CREATED);
     }
 
+    // permet de lire toutes les catégories sous format Json
     #[Route('/categorie', name: 'readAll-categorie')]
     public function readAll(ManagerRegistry $doctrine)
     {
@@ -48,6 +50,7 @@ class CategorieController extends AbstractController
         return new JsonResponse($data);
     }
 
+    // Permet de lire seulement une catégorie grâce à l'ID toujours sous format Json
     #[Route('/categorie/read/{id}', name: 'read-categorie')]
     public function read(ManagerRegistry $doctrine, int $id)
     {
@@ -62,6 +65,7 @@ class CategorieController extends AbstractController
         return new JsonResponse($data);
     }
 
+    // Permet de modifier une catégorie avec l'ID
     #[Route('/categorie/update/{id}', name: 'update-categorie')]
     public function update(ManagerRegistry $doctrine, Request $request, int $id): Response
     {
@@ -80,6 +84,7 @@ class CategorieController extends AbstractController
         return new Response('Catégorie non modifiée', Response::HTTP_CREATED);
     }
 
+    // Permet de supprimer une catégorie avec l'ID
     #[Route('/categorie/delete/{id}', name: 'categorie-delete')]
     public function delete(ManagerRegistry $doctrine, int $id)
     {
