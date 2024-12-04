@@ -8,8 +8,9 @@ export default function ProduitPage() {
     return (
         <div>
             <NavBar />
-            <Link to={"/produit/create"}>Ajouter un Produit</Link>
-            <ReadAllProduit />
+            <div className="mt-6">
+                <ReadAllProduit />
+            </div>
             <Footer />
         </div>
     );

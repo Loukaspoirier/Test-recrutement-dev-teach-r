@@ -13,13 +13,31 @@ code {
 
 .Navbar {
   background-color: #0054a3;
+  text-transform: uppercase;
 }
 
 .Homepage {
   background-image: url(https://app.teachr.fr/static/media/bg-home-page.73d8c66a6849aa86f410.svg);
+  background-repeat: no-repeat;
 }
 
 .ColorTextHomepage {
   color: #0054a3;
   font-size: 30px !important;
+}
+
+.BgButton {
+  background-color: #0054a3 !important;
+}
+
+.BgButtonError404 {
+  background-color: #219CFF;
+}
+.center{
+  text-align: center;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 60%;
 }

@@ -73,6 +73,12 @@ export const deleteCategorieById = (id) => async (dispatch) => {
   }
 };
 
+export const setSort = (field, direction) => ({
+  type: "produits/setSort",
+  payload: { field, direction },
+});
+
+
 export const fetchProduits = () => async (dispatch) => {
   dispatch(fetchProduitsRequest());
   try {

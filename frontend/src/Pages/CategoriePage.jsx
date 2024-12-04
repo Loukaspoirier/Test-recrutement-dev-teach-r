@@ -8,7 +8,6 @@ export default function CategoriePage() {
     return (
         <div>
             <NavBar />
-            <Link to={"/categorie/create"}>Ajouter une categorie</Link>
             <ReadAllCategorie />
             <Footer />
         </div>

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProduits } from "../../actions";
 import DeleteProduit from "./DeleteProduit";
 import { Link } from "react-router-dom";
+import SortProduit from "./SortProduit";
 
 export default function ReadAllProduit() {
     const dispatch = useDispatch();
@@ -16,14 +17,16 @@ export default function ReadAllProduit() {
         dispatch(fetchProduits());
     }, [dispatch]);
 
-    if (loading) return <p>Chargement...</p>;
+    if (loading) return <p className="text-center m-6">Chargement...</p>;
     if (error) return <p>Erreur : {error}</p>;
 
     return (
         <div>
-            <div>
-                <form className="max-w-md mx-auto m-6">
-                    <label for="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div className="columns-3">
+                <button type="button" class="text-white BgButton rounded-full text-xl mx-6 px-5 py-2.5 text-center">
+                    <Link to={"/produit/create"}>Ajouter un Produit</Link>
+                </button>
+                <form className="max-w-md mx-auto">
                     <div className="relative">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -33,9 +36,11 @@ export default function ReadAllProduit() {
                         <input type="search"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)} id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Rechercher un produit..." required />
-                        <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Rechercher</button>
                     </div>
                 </form>
+                <div className="m-6">
+                    <SortProduit />
+                </div>
             </div>
             <div className="block m-6 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <div className="relative overflow-x-auto">
@@ -84,7 +89,7 @@ export default function ReadAllProduit() {
                                             {produit.date}
 
                                         </td>
-                                        <td className="px-6 py-4 m-2">
+                                        <td className="py-4">
                                             <Link to={`/produit/update/${produit.id}`} className="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center m-3 dark:focus:ring-yellow-900">Modifier</Link>
                                             <br />
                                             <DeleteProduit id={produit.id} />

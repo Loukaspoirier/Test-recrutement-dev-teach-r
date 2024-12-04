@@ -12,11 +12,12 @@ export default function ReadAllCategorie() {
     dispatch(fetchCategories());
   }, [dispatch]);
 
-  if (loading) return <p>Chargement...</p>;
+  if (loading) return <p className="text-center m-6">Chargement...</p>;
   if (error) return <p>Erreur : {error}</p>;
-  
+
   return (
     <div>
+      <button type="button" class="text-white BgButton rounded-full text-xl m-6 px-5 py-2.5 text-center me-2 mb-2"><Link to={"/categorie/create"}>Ajouter une categorie</Link></button>
       <div className="grid m-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {categories.map((categorie) => (
           <div

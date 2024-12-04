@@ -1,6 +1,5 @@
 import * as React from "react";
 import NavBar from "../Components/General/Navbar";
-import { Link } from "react-router-dom";
 import Footer from "../Components/General/Footer";
 
 export default function HomePage() {
@@ -8,8 +7,11 @@ export default function HomePage() {
         <div>
             <NavBar />
             <div className="Homepage">
-                <div className="Row">
-                    <h5 className=" font-bold ps-6 pt-6 ColorTextHomepage">Gestionnaire de Produit <br /> Un nouveau gestionnaire de produit <br />Facile à prendre en main <br />Rapide et efficace</h5>
+                <div className="ps-6">
+                    <h1 className="font-bold ps-6 pt-6 ColorTextHomepage">Gestionnaire de Produit</h1>
+                    <h1 className="font-bold ps-6 pt-6 ColorTextHomepage">Un nouveau gestionnaire de produit</h1>
+                    <h1 className="font-bold ps-6 pt-6 ColorTextHomepage">Facile à prendre en main</h1>
+                    <h1 className="font-bold ps-6 pt-6 ColorTextHomepage">Rapide et efficace</h1>
                 </div>
                 <Footer />
             </div>
