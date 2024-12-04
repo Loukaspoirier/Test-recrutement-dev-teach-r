@@ -79,3 +79,5 @@ J'ai commenté la plupart de mon code pour l'explication des différentes foncti
 - Créer une authentification pour plus de sécurité mais je n'ai pas eu le temps de le finir
 - Ajouter des tests fonctionnels
 - Héberger le site pour la démo 
+
+## Lien vers le site hébergé seulement en frontend, sans aucune donnée et avec des problèmes de couleurs non présente en local sur Vercel https://test-recrutement-dev-teach-ityjne753-loukaspoiriers-projects.vercel.app/
