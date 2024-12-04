@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router,Routes, Route, Link} from "react-router-dom"
-import HomePage from './Components/Pages/HomePage';
-import ProduitPage from './Components/Pages/ProduitPage';
-import CategoriePage from './Components/Pages/CategoriePage';
-import CreateProduitPage from './Components/Pages/CreateProduitPage';
-import CreateCategoriePage from './Components/Pages/CreateCategoriePage';
-import UpdateCategoriePage from './Components/Pages/UpdateCategoriePage';
-import UpdateProduitPage from './Components/Pages/UpdateProduit';
+import HomePage from './Pages/HomePage';
+import ProduitPage from './Pages/ProduitPage';
+import CategoriePage from './Pages/CategoriePage';
+import CreateProduitPage from './Pages/CreateProduitPage';
+import CreateCategoriePage from './Pages/CreateCategoriePage';
+import UpdateCategoriePage from './Pages/UpdateCategoriePage';
+import UpdateProduitPage from './Pages/UpdateProduit';
 
 function App() {
   return (

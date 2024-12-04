@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteCategorieById } from "../actions";
+import { deleteCategorieById } from "../../actions";
 
 export default function DeleteCategorie({ id }) {
     const dispatch = useDispatch();

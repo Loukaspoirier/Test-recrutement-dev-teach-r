@@ -1,6 +1,6 @@
 import * as React from "react";
-import NavBar from "../Navbar";
-import UpdateCategorie from "../UpdateCategorie";
+import NavBar from "../Components/General/Navbar";
+import UpdateCategorie from "../Components/Categorie/UpdateCategorie";
 
 export default function UpdateCategoriePage() {
     return (

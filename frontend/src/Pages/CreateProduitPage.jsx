@@ -1,6 +1,6 @@
 import * as React from "react";
-import NavBar from "../Navbar";
-import CreateProduit from "../CreateProduit";
+import NavBar from "../Components/General/Navbar";
+import CreateProduit from "../Components/Produit/CreateProduit";
 
 export default function CreateProduitPage() {
     return (

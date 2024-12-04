@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteProduitById } from "../actions";
+import { deleteProduitById } from "../../actions";
 
 export default function DeleteProduit({ id }) {
     const dispatch = useDispatch();
